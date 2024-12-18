@@ -6,6 +6,8 @@
 
 using namespace std;
 
+int lastATK = 0;
+
 class Weapon{
 
 public:
@@ -31,6 +33,8 @@ public:
 
         }
         
+        lastATK = damage_;
+
         return damage_;
     }
 
@@ -38,7 +42,7 @@ public:
         return name_;
     }
 
-    string getDescription(){
+    virtual string getDescription(){
         return name_ + "," + to_string(damage_);
     }
 
