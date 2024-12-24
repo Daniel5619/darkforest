@@ -1,8 +1,8 @@
-/*#include <termios.h>
+#include <termios.h>
 #include <unistd.h>
 #include <iostream>
 // Function to get single character input without Enter
-char _getch() {
+char getch() {
     struct termios oldt, newt;
     char ch;
     tcgetattr(STDIN_FILENO, &oldt);
