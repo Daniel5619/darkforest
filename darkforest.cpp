@@ -4,9 +4,8 @@
 #include "Weapon.h"
 #include "SuperWeapon.h"  //this is the coolest game ever
 #include "WimpyWeapon.h"
+#include "Player.h"
 using namespace std;
-
-int health  = 100;
    
 int random_in_range(int range){
        // Seed the random number generator with the current time
@@ -37,14 +36,16 @@ Weapon* search(){
     return weapon;
 }
 
-void goIntoTheForest(Weapon* weapon){
+void goIntoTheForest(Weapon* weapon, Player& player1){
 
     cout << "You encounter a goblin in the forest!\n";
     int goblinHealth = 120;
 
     if (weapon == nullptr){
         cout << "The goblin attacks you\n";
-        health = 0;
+        
+         player1 -= player1.getHealth();
+         
     }
     else {
 
@@ -72,7 +73,7 @@ int main() {
 
     vector <Weapon*> inventory;
     string selection;
-    
+    Player player1(120);
 
     while ("x" != selection){
 
@@ -94,29 +95,38 @@ int main() {
             }
         }
         else if("3" == selection){
-            for(int i=0;i<inventory.size();i++){
-                cout << "Please choose a weapon!\n" << "choose " << i << " for the " << inventory[i]->getName() << " weapon\n" ;
-            }
             int chosenNum=0;
-            cin >> chosenNum;
-            for(int x=0;x<inventory.size();x++){
-                if(chosenNum==x){
-                    cout << "you have chosen the " << inventory[chosenNum]->getName() << " weapon!\n";
-                    break;
+            if (inventory.size() > 0) {
+
+                for(int i=0;i<inventory.size();i++){
+                    cout << "Please choose a weapon!\n" << "choose " << i << " for the " << inventory[i]->getName() << " weapon\n" ;
                 }
+                cin >> chosenNum;
+
+                for(int x=0;x<inventory.size();x++){
+
+                    if(chosenNum==x){
+
+                        cout << "you have chosen the " << inventory[chosenNum]->getName() << " weapon!\n";
+                        break;
+                    }
+                }
+
             }
             Weapon *weapon = nullptr;
 
             if (inventory.size() > 0){
                 weapon = inventory[chosenNum];
             }
-            goIntoTheForest(weapon);
+                
+            goIntoTheForest(weapon, player1);
         }
-    
-        if(health <= 0){
+       
+        if(player1.getHealth() <= 0){
             cout << "you died!\n";
             break;
         }
+        
     }
 
     cout << "last attack was: " << lastATK << "\n";
