@@ -28,6 +28,20 @@ public:
         
     }
 
+    void Delete() {
+        Node* newNodePtr = head->next;
+        delete head;
+        head = newNodePtr;
+    }
+
+    void Print() {
+        Node* current = head;
+        while (current != nullptr){
+            std::cout << current->value << "\n";
+            current = current->next;
+        }
+    }
+
     ~LinkedList(){
         Node* current = head;
         while (current != nullptr){
@@ -49,11 +63,12 @@ int main(){
     list.append(5);
     list.append(7);
 
-    Node* current = list.head;
-    while (current != nullptr){
-        std::cout << current->value << "\n";
-        current = current->next;
-    }
+    list.Print();
+
+    list.Delete();
+
+    list.Print();
+
     std::cout << std::endl;
 
     return 0;
