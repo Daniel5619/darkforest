@@ -28,6 +28,25 @@ public:
         
     }
 
+    int Get(int nodeIndexNum){
+        Node* current = head;
+        int finalIndex = 1;
+        
+        while (current->next != nullptr){
+            finalIndex++;
+            current = current->next;
+        }
+        current = head;
+        if (nodeIndexNum <= finalIndex && nodeIndexNum > 0) {
+            for (int i = 1; i != nodeIndexNum; i++){
+                current = current->next;
+            }
+            return current->value;
+        } else {
+            return 0;
+        }
+    }
+
     void Delete() {
         Node* newNodePtr = head->next;
         delete head;
@@ -71,5 +90,6 @@ int main(){
 
     std::cout << std::endl;
 
+    std::cout << list.Get(0) << std::endl;
     return 0;
 }
