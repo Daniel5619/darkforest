@@ -28,23 +28,30 @@ public:
         
     }
 
-    int Get(int nodeIndexNum){
+    void RemoveAt(int nodeIndexNum){
+        if (nodeIndexNum == 0) {
+            Delete();
+            return;
+        } else if (nodeIndexNum < 0) {
+            return;
+        }
+
         Node* current = head;
-        int finalIndex = 1;
-        
-        while (current->next != nullptr){
-            finalIndex++;
-            current = current->next;
-        }
-        current = head;
-        if (nodeIndexNum <= finalIndex && nodeIndexNum > 0) {
-            for (int i = 1; i != nodeIndexNum; i++){
+        Node* oldNode = head;
+        int count = 0;
+
+            while (count < nodeIndexNum && current->next != nullptr){
+                oldNode = current;
                 current = current->next;
+                count++;
             }
-            return current->value;
-        } else {
-            return 0;
-        }
+
+            if (current != nullptr) {
+                oldNode->next = current->next;
+                delete current;
+            }
+
+            return;
     }
 
     void Delete() {
@@ -79,8 +86,12 @@ int main(){
 
     LinkedList list;
     list.append(1);
+    list.append(2);
+    list.append(3);
+    list.append(4);
     list.append(5);
-    list.append(7);
+    list.append(6);
+
 
     list.Print();
 
@@ -88,8 +99,10 @@ int main(){
 
     list.Print();
 
-    std::cout << std::endl;
+    for (int i = 0; i <= 2; i++) list.RemoveAt(0);
 
-    std::cout << list.Get(0) << std::endl;
+    list.Print();
+    
+    std::cout << std::endl;
     return 0;
 }
