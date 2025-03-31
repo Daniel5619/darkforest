@@ -1,25 +1,28 @@
 #include <iostream>
 
+
+template <typename T>
 class Node {
 public:
-    int value;
+    T value;
     Node* next;
 
-    Node(int value) : value(value), next(nullptr) {}
+    Node(T value) : value(value), next(nullptr) {}
 };
 
+template <typename T>
 class LinkedList {
 public:
-    Node* head;
+    Node<T>* head;
 
     LinkedList() : head(nullptr){}
 
     void append(int newValue){
-        Node* newNode = new Node(newValue);
+        Node<T>* newNode = new Node<T>(newValue);
         if(head == nullptr){
             head = newNode; 
         }else{
-            Node* current = head;
+            Node<T>* current = head;
             while (current->next != nullptr){
                 current = current->next;
             }
@@ -36,8 +39,8 @@ public:
             return;
         }
 
-        Node* current = head;
-        Node* oldNode = head;
+        Node<T>* current = head;
+        Node<T>* oldNode = head;
         int count = 0;
 
             while (count < nodeIndexNum && current->next != nullptr){
@@ -55,13 +58,13 @@ public:
     }
 
     void Delete() {
-        Node* newNodePtr = head->next;
+        Node<T>* newNodePtr = head->next;
         delete head;
         head = newNodePtr;
     }
 
     void Print() {
-        Node* current = head;
+        Node<T>* current = head;
         while (current != nullptr){
             std::cout << current->value << "\n";
             current = current->next;
@@ -69,9 +72,9 @@ public:
     }
 
     ~LinkedList(){
-        Node* current = head;
+        Node<T>* current = head;
         while (current != nullptr){
-            Node* next = current->next;
+            Node<T>* next = current->next;
             delete current;
             current = next;
         }
@@ -84,7 +87,7 @@ public:
 
 int main(){
 
-    LinkedList list;
+    LinkedList<int> list;
     list.append(1);
     list.append(2);
     list.append(3);
