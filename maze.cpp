@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+// handy maze generator: https://www.dcode.fr/maze-generator
 
 class Maze {
 private:
