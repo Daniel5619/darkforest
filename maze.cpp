@@ -63,6 +63,43 @@ class MazeSolver {
         
         bool solve(int row, int col) {
 
+            system("cls");
+            printMaze();
+
+            if (maze[row][col] != 'S') {
+                if ( maze[row][col] == 'F') {
+                    return true;
+                }
+                if ( maze[row][col] == '#') {
+                    return false;
+                }
+                if ( maze[row][col] == '.') {
+                    return false;
+                }
+                if (row > maze.size() || row < 0) {
+                    return false;
+                }
+                if (col > maze[row].size() || col < 0) {
+                    return false;
+                }
+                maze[row][col] = '.';
+            }
+
+            if (solve(row, col+1)) {
+                return true;
+            } 
+            if (solve(row, col-1)) {
+                return true;
+            }
+            if (solve(row+1, col)) {
+                return true;
+            }
+            if (solve(row-1, col)) {
+                return true;
+            }
+            
+            maze[row][col] = ' ';
+
             // implement recursive solve function here
             // When solving a recursive problem:
             //1. address the base-case (i.e. the cell we are on is the end, or we are out of bounds (any reasons to stop the recursion))
@@ -71,7 +108,16 @@ class MazeSolver {
 
             return false;
         }
-    
+        void printMaze() const {
+            for(int i=0; i<maze.size(); i++){
+                std::vector<char>  row = maze[i];
+                for(int x=0; x<row.size(); x++){
+                    char cell = row[x];
+                    std::cout << cell;
+                }
+                std::cout << std::endl;
+            }
+        }
     public:
         MazeSolver(std::vector<std::vector<char>>& maze) : maze(maze) {}
     
@@ -90,6 +136,10 @@ int main() {
         std::cout << "Original Maze:" << std::endl;
         maze.printMaze();
 
+        MazeSolver solver(maze.getMaze());
+        solver.findPath(maze.getStartRow(),maze.getStartCol());
+
+        maze.printMaze();
 
     } catch (std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
