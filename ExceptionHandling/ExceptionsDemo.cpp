@@ -22,6 +22,11 @@ int main() {
 
     int a = 10, b = 0;
     
+    std::cout << "Enter numerator: ";
+    std::cin >> a;
+    std::cout << "Enter denominator: ";
+    std::cin >> b;
+
     try {
     
         int result = division(a,b); 
