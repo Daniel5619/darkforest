@@ -1,25 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib> // Needed for rand() and srand()
+#include <functional>
 #include "Weapon.h"
 #include "SuperWeapon.h"  //this is the coolest game ever
 #include "WimpyWeapon.h"
 #include "Player.h"
 using namespace std;
    
-int random_in_range(int range){
-       // Seed the random number generator with the current time
-    srand(static_cast<unsigned int>(time(0)));
+Weapon* search(std::function<int()> random_generator){
 
-    // Generate a random number in the range 1-2
-    int random_num = rand() % range + 1;
-
-    return random_num;
-}
-
-Weapon* search(){
- 
-    int rand = random_in_range(3);
+    int rand = random_generator();
     Weapon* weapon;
 
     if(rand == 1){
@@ -71,9 +62,20 @@ void goIntoTheForest(Weapon* weapon, Player& player1){
 
 int main() {
 
+    int range = 3;
     vector <Weapon*> inventory;
     string selection;
     Player player1(120);
+
+    auto random_in_range = [range] () {
+        // Seed the random number generator with the current time
+        srand(static_cast<unsigned int>(time(0)));
+
+        // Generate a random number in the range 1-2
+        int random_num = rand() % range + 1;
+
+        return random_num;
+    };
 
     while ("x" != selection){
 
@@ -86,7 +88,7 @@ int main() {
         cin >> selection;
 
         if ("1" == selection){
-            inventory.push_back(search());
+            inventory.push_back(search(random_in_range));
         }
         else if("2" == selection){
             cout << "Your inventory contains:\n";

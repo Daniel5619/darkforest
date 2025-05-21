@@ -12,7 +12,7 @@ std::mutex print_mutex;
 void print_numbers(int start, int end, const std::string& thread_name) {
     for (int i = start; i <= end; i++) {
         // Lock the mutex before printing to avoid mixed output from different threads
-       // std::lock_guard<std::mutex> guard(print_mutex);
+        std::lock_guard<std::mutex> guard(print_mutex);
         std::cout << thread_name << " printing: " << i << std::endl;
         
         // Simulate some work by sleeping for 100ms
