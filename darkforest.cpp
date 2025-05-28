@@ -6,10 +6,15 @@
 #include "SuperWeapon.h"  //this is the coolest game ever
 #include "WimpyWeapon.h"
 #include "Player.h"
+#include <functional>
 using namespace std;
    
 Weapon* search(std::function<int()> random_generator){
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 657a20ad267e64c72f878dfdf1342196d15324f8
     int rand = random_generator();
     Weapon* weapon;
 
