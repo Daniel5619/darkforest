@@ -5,21 +5,12 @@
 #include "SuperWeapon.h"  //this is the coolest game ever
 #include "WimpyWeapon.h"
 #include "Player.h"
+#include <functional>
 using namespace std;
    
-int random_in_range(int range){
-       // Seed the random number generator with the current time
-    srand(static_cast<unsigned int>(time(0)));
-
-    // Generate a random number in the range 1-2
-    int random_num = rand() % range + 1;
-
-    return random_num;
-}
-
-Weapon* search(){
+Weapon* search(std::function<int()> random_generator){
  
-    int rand = random_in_range(3);
+    int rand = random_generator();
     Weapon* weapon;
 
     if(rand == 1){
@@ -75,6 +66,15 @@ int main() {
     string selection;
     Player player1(120);
 
+    // Define the range for random number generation
+    const int weapon_range = 3;
+
+    // Define the lambda for random number generation, capturing weapon_range
+    auto random_in_range = [weapon_range]() {
+        srand(static_cast<unsigned int>(time(0)));
+        return rand() % weapon_range + 1;
+    };
+
     while ("x" != selection){
 
         cout << "Select an action!\n";
@@ -86,7 +86,7 @@ int main() {
         cin >> selection;
 
         if ("1" == selection){
-            inventory.push_back(search());
+            inventory.push_back(search(random_in_range));
         }
         else if("2" == selection){
             cout << "Your inventory contains:\n";
